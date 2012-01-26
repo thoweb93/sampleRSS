@@ -1,6 +1,7 @@
 package com.ithtl.sampleRSS;
 
 import java.net.URL;
+import java.util.List;
 
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
@@ -13,6 +14,7 @@ import RSS.RSSHandler;
 import RSS.RSSItem;
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -37,6 +39,7 @@ public class ViewRSS extends Activity {
 		TextView tV_FeedPupDate = (TextView) findViewById(R.id.tV_FeedUpdate);
 		ListView lV_FeedItems = (ListView)findViewById(R.id.lV_FeedItems);
 		
+		
 		if(feed ==null){
 			tV_FeedTitle.setText("No RSS Feed Available");
 			return;
@@ -47,7 +50,7 @@ public class ViewRSS extends Activity {
 		
 		ArrayAdapter<RSSItem> adapter = new ArrayAdapter<RSSItem>(this, android.R.layout.simple_list_item_1, feed.getAllItems());
 		lV_FeedItems.setAdapter(adapter);
-		lV_FeedItems.setSelection(0);
+		//lV_FeedItems.setSelection(0);
 	}
 	private RSSFeed getFeed(String _url){
 		try{

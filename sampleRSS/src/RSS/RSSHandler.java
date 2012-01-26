@@ -1,8 +1,6 @@
 package RSS;
 
-import java.text.AttributedCharacterIterator.Attribute;
-import java.util.jar.Attributes;
-
+import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
@@ -10,10 +8,10 @@ import android.util.Log;
 
 public class RSSHandler extends DefaultHandler {
 
-	RSSFeed feed;
-	RSSItem item;
-	String lastElementName = "";
-	boolean bFoundChannel = false;
+	private RSSFeed feed;
+	private RSSItem item;
+	private boolean bFoundChannel = false; 
+	private String lastElementName = "";
 	
 	final int RSS_TITLE = 1;
 	final int RSS_LINK = 2;
@@ -37,9 +35,9 @@ public class RSSHandler extends DefaultHandler {
 	
 	public void endDocument() throws SAXException{}
 	
-	public void startElement(String _namespaceURI, String _localName,String _qName, 
-            Attributes _atts) throws SAXException{
+	public void startElement(String _namespaceURI, String _localName, String _qName, Attributes _atts) throws SAXException{
 		depth++;
+		Log.i("RSSReader", "localName: " + _localName);
 		if(_localName.equals("channel")){
 			currentState = 0;
 			return;			
@@ -47,9 +45,15 @@ public class RSSHandler extends DefaultHandler {
 		if(_localName.equals("image")){
 			feed.setTitle(item.getTitle());
 			feed.setPubDate(item.getPubDate());
+			return;
 		}
 		if(_localName.equals("item")){
 			item = new RSSItem();
+			Log.i("RSSReader", "startElement: item true");
+			return;
+		}
+		if(_localName.equals("title")){
+			currentState = RSS_TITLE;
 			return;
 		}
 		if(_localName.equals("description")){
@@ -69,6 +73,7 @@ public class RSSHandler extends DefaultHandler {
 			return;
 		}
 		currentState = 0;
+		Log.i("RSSReader", "Test startElement false");		
 	}
 	
 	public void endElement(String _namespaceURI, String _localName, String _qName) throws SAXException{
@@ -81,7 +86,8 @@ public class RSSHandler extends DefaultHandler {
 	
 	public void characters(char _ch[], int _start, int _length){
 		String theString = new String(_ch, _start, _length);
-		Log.i("RSSReader", "characters[" + theString + "]");
+		Log.i("RSSReader", "currentstate : "+currentState);
+		Log.i("RSSReader", "characters[" + theString + "]");		
 		
 		switch(currentState){
 		case RSS_TITLE:

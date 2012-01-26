@@ -1,53 +1,54 @@
 package RSS;
 
 public class RSSItem {
-	private String title = null;
-	private String description = null;
-	private String link = null;
-	private String category = null;
-	private String pubdate = null;
+	private String title = "";
+	private String description = "";
+	private String link = "";
+	private String category = "";
+	private String pubdate = "";
 	
-	RSSItem(){}
+	public RSSItem(){}
 	
-	void setTitle(String _title){
+	public void setTitle(String _title){
 		title = _title;
 	}
 	
-	void setDescription(String _description){
+	public void setDescription(String _description){
 		description = _description;
 	}
-	void setLink(String _link){
+	public void setLink(String _link){
 		link = _link;
 	}
-    void setCategory(String _category)
+	public void setCategory(String _category)
     {
         category = _category;
     }
-    void setPubDate(String _pubdate)
+	public void setPubDate(String _pubdate)
     {
         pubdate = _pubdate;
     }
-    String getTitle()
+	public String getTitle()
     {
         return title;
     }
-    String getDescription()
+	public String getDescription()
     {
         return description;
     }
-    String getLink()
+	public String getLink()
     {
         return link;
     }
-    String getCategory()
+	public String getCategory()
     {
         return category;
     }
-    String getPubDate()
+	public String getPubDate()
     {
         return pubdate;
     }
-    /*@Override
+	
+    @Override
     public String toString()
     {
         // limit how much text you display
@@ -56,5 +57,5 @@ public class RSSItem {
             return title.substring(0, 42) + "...";
         }
         return title;
-    }*/
+    }
 }
